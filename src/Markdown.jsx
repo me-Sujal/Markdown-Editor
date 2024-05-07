@@ -1,8 +1,11 @@
-import React, { useState, useEffect } from "react"
+import React, { useState} from "react"
 import Markdown from "react-markdown"
 import { ModeButtons } from "./ModeButtons"
 import remarkGfm from "remark-gfm"
 import "./style/Markdown.css"
+import reactsvg from "./assets/react.svg"
+import boldSvg from "./assets/bold.svg"
+import italicSvg from "./assets/italic.svg"
 
 export default function MarkdownEditors() {
 	const [text, setText] = useState("")
@@ -14,19 +17,19 @@ export default function MarkdownEditors() {
 	const [characterCount, setCharacterCount] = useState(0)
 
 	const buttonlabels = [
-		{ label: "H", format: "# " },
-		{ label: "B", format: "** ** " },
-		{ label: "I", format: "* * " },
-		{ label: "S", format: "~ ~ " },
-		{ label: "UL", format: "- " },
-		{ label: "Ol", format: "1. " },
-		{ label: "BQ", format: "> " },
-		{ label: "C", format: "` `" },
-		{ label: "CBLK", format: "``` \n ```" },
+		{ label: "Insert Heading", format: "# ",src:reactsvg },
+		{ label: "Insert Bold Text", format: "** ** ",src:boldSvg },
+		{ label: "Insert Italic Text", format: "* * ",src:italicSvg },
+		{ label: "Insert Strikethrough Text", format: "~ ~ " },
+		{ label: "Insert Unordered List Item", format: "- " },
+		{ label: "Insert Ordered List Item", format: "1. " },
+		{ label: "Insert Blockquote", format: "> " },
+		{ label: "Insert Inline Code", format: "` `" },
+		{ label: "Insert Code Block", format: "``` \n ```" },
 		{ label: "TB", format: "" },
-		{ label: "Img", format: "![Alt Image]( )" },
-		{ label: "Lnk", format: "[Link]( )" },
-		{ label: "del", format: "clear" },
+		{ label: "Insert Image", format: "![Alt Image]( )" },
+		{ label: "Insert Link", format: "[Link]( )" },
+		{ label: "Delete all", format: "clear" },
 	]
 
 	const handleChange = (e) => {
@@ -74,7 +77,7 @@ export default function MarkdownEditors() {
 						{buttonlabels.map((buttonObj, index) => (
 							<ModeButtons
 								key={index}
-								buttonLabel={buttonObj}
+								buttonInfo={buttonObj}
 								onClick={() => formatText(buttonObj.format)}
 							/>
 						))}
