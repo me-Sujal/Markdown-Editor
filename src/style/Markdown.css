@@ -1,0 +1,29 @@
+.markdown-editor{
+    height: 100vh;
+    width: 100vw;
+    /* background-color: rebeccapurple; */
+}
+
+.headbar{
+    background-color: red;
+    height: 40px;
+}
+
+.editor-body{
+    /* background-color: blue; */
+    height: calc(100% - 70px);
+    display: flex;
+}
+
+.tailbar{
+    background-color: green;
+    height: 30px;
+}
+
+.text-input{
+    resize: none;
+    height: 100%;
+    width: 100%;
+    padding: 20px 30px;
+    font-size: 16px;
+}
