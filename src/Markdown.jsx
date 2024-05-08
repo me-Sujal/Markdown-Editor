@@ -1,11 +1,8 @@
-import React, { useState} from "react"
+import React, { useEffect, useState } from "react"
 import Markdown from "react-markdown"
 import { ModeButtons } from "./ModeButtons"
 import remarkGfm from "remark-gfm"
 import "./style/Markdown.css"
-import reactsvg from "./assets/react.svg"
-import boldSvg from "./assets/bold.svg"
-import italicSvg from "./assets/italic.svg"
 
 export default function MarkdownEditors() {
 	const [text, setText] = useState("")
@@ -15,23 +12,34 @@ export default function MarkdownEditors() {
 		previewerWidth: "50%",
 	})
 	const [characterCount, setCharacterCount] = useState(0)
+	const [wordcount, setWordCount] = useState(0)
 
 	const buttonlabels = [
-		{ label: "Insert Heading", format: "# ",src:reactsvg },
-		{ label: "Insert Bold Text", format: "** ** ",src:boldSvg },
-		{ label: "Insert Italic Text", format: "* * ",src:italicSvg },
-		{ label: "Insert Strikethrough Text", format: "~ ~ " },
-		{ label: "Insert Unordered List Item", format: "- " },
-		{ label: "Insert Ordered List Item", format: "1. " },
-		{ label: "Insert Blockquote", format: "> " },
-		{ label: "Insert Inline Code", format: "` `" },
-		{ label: "Insert Code Block", format: "``` \n ```" },
-		{ label: "TB", format: "" },
-		{ label: "Insert Image", format: "![Alt Image]( )" },
-		{ label: "Insert Link", format: "[Link]( )" },
-		{ label: "Delete all", format: "clear" },
+		{ format: "# ", name: "heading"},
+		{ format: "** ** ", name: "bold" },
+		{ format: "* * ", name: "italic" },
+		{ format: "~ ~ ", name : "strikeThrough"},
+		{ format: "- ", name : "unorderedList"},
+		{ format: "1. ", name : "orderedList"},
+		{ format: "> ", name : "quotes"},
+		{ format: "` `", name :"codeInline" },
+		{ format: "``` \n ```", name: "codeBlock"} ,
+		{ format: "", name : "table"},
+		{ format: "![Alt Image]( )", name : "imageAttach"},
+		{ format: "[Link]( )", name : "linkAttach"},
+		{ format: "clear", name: "clearAll" },
 	]
 
+	useEffect(() => {
+		setCharacterCount(text.trim().length)
+		const words = text.trim().split(/\s+/)
+		if (words[0] != [""]) {
+			setWordCount(words.length)
+		} else {
+			setWordCount(0)
+		}
+		console.log(text)
+	}, [text])
 	const handleChange = (e) => {
 		setText(e.target.value)
 		setCharacterCount(text.length)
@@ -85,18 +93,24 @@ export default function MarkdownEditors() {
 					</div>
 				</div>
 				<div className="editor-body">
-					<div className="editor" style={editorStyle}>
+					<div
+						className="editor"
+						style={editorStyle}>
 						<textarea
 							className="text-input"
 							value={text}
 							onChange={handleChange}></textarea>
 					</div>
-					<div className="previewer" style={previewerStyle}>
+					<div
+						className="previewer"
+						style={previewerStyle}>
 						<Markdown remarkPlugins={[remarkGfm]}>{text}</Markdown>
 					</div>
 				</div>
 				<div className="tailbar">
-					<p>Character : {characterCount}</p>
+					<p>
+						Character : {characterCount} Words : {wordcount}
+					</p>
 				</div>
 			</div>
 		</>

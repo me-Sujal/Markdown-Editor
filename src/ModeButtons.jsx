@@ -1,16 +1,29 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
 
 export function ModeButtons({ buttonInfo, onClick }) {
-	const style = {
-		height: "30px",
-		aspectRatio:"0.75", // svg ko size almost 117:150 so 0.75 aspect ratio, width will be adjusted according to it. make sure to adjust height and width of svg when using new svgs
-		border: "none",
-	}
+	const [image, setImage] = useState(null)
+
+	useEffect(() => {
+		const importSVG = async () => {
+			try {
+				const { default: svgComponent } = await import(
+					`./assets/${buttonInfo.name}.svg`
+				)
+				setImage(svgComponent)
+			} catch (err) {
+				console.error(`Error importing SVG file: ${err}`)
+			}
+		}
+		importSVG()
+	}, [buttonInfo.trial])
 
 	return (
 		<>
-			<button onClick={() => onClick(buttonInfo.format)} style={style} title={buttonInfo.label}>
-				<img src={buttonInfo.src} alt={buttonInfo.label} />
+			<button onClick={() => onClick(buttonInfo.format)}>
+				<img
+					src={image}
+					alt={buttonInfo.label}
+				/>
 			</button>
 		</>
 	)
