@@ -3,6 +3,7 @@ import Markdown from "react-markdown"
 import { ModeButtons } from "./ModeButtons"
 import remarkGfm from "remark-gfm"
 import "./style/Markdown.css"
+import Preview from "./components/Preview.jsx"
 
 export default function MarkdownEditors() {
 	const [text, setText] = useState("")
@@ -104,7 +105,7 @@ export default function MarkdownEditors() {
 					<div
 						className="previewer"
 						style={previewerStyle}>
-						<Markdown remarkPlugins={[remarkGfm]}>{text}</Markdown>
+						<Preview text={text}/>
 					</div>
 				</div>
 				<div className="tailbar">
