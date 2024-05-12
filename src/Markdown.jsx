@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from "react"
-import Markdown from "react-markdown"
 import { ModeButtons } from "./ModeButtons"
-import remarkGfm from "remark-gfm"
 import "./style/Markdown.css"
 import Preview from "./components/Preview.jsx"
+import Editor from "./components/Editor.jsx"
 
 export default function MarkdownEditors() {
-	const [text, setText] = useState("")
+	const [text, setText] = useState("ok")
 	const [editPreview, setEditPreview] = useState({
 		mode: 1, //mode 1 = both mode 2 = editor only mode 0 = preview only
 		editorWidth: "50%",
@@ -39,8 +38,8 @@ export default function MarkdownEditors() {
 		} else {
 			setWordCount(0)
 		}
-		console.log(text)
 	}, [text])
+
 	const handleChange = (e) => {
 		setText(e.target.value)
 		setCharacterCount(text.length)
@@ -58,15 +57,6 @@ export default function MarkdownEditors() {
 				mode: currentMode >= 2 ? 0 : currentMode + 1,
 			}
 		})
-	}
-
-	const editorStyle = {
-		width: editPreview.editorWidth,
-	}
-
-	const previewerStyle = {
-		width: editPreview.previewerWidth,
-		padding: "20px 40px",
 	}
 
 	const formatText = (format) => {
@@ -96,16 +86,13 @@ export default function MarkdownEditors() {
 				<div className="editor-body">
 					<div
 						className="editor"
-						style={editorStyle}>
-						<textarea
-							className="text-input"
-							value={text}
-							onChange={handleChange}></textarea>
+						style={{ width: editPreview.editorWidth }}>
+						<Editor value={text} handleChange={handleChange} />
 					</div>
 					<div
 						className="previewer"
-						style={previewerStyle}>
-						<Preview text={text}/>
+						style={{ width: editPreview.previewerWidth, padding: "20px 40px" }}>
+						<Preview text={text} />
 					</div>
 				</div>
 				<div className="tailbar">

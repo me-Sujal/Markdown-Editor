@@ -1,6 +1,3 @@
-.right-col{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    padding: 3px;
+.previewer{
+    overflow-y: auto;
 }
