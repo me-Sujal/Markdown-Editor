@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react"
+import "./style/Markdown.css"
 
 export function ModeButtons({ buttonInfo, onClick }) {
 	const [image, setImage] = useState(null)
@@ -17,9 +18,10 @@ export function ModeButtons({ buttonInfo, onClick }) {
 		importSVG()
 	}, [buttonInfo.trial])
 
+
 	return (
 		<>
-			<button onClick={() => onClick(buttonInfo.format)}>
+			<button onClick={() => onClick(buttonInfo.format)} className="buttons">
 				<img
 					src={image}
 					alt={buttonInfo.label}

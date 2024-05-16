@@ -27,3 +27,8 @@ input[type = checkbox]{
     color: red;
 }
 
+code {
+    background-color: lightgray;
+    padding: 10px;
+    display: block;
+}
