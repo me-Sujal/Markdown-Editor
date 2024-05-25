@@ -20,7 +20,6 @@ export default function Editor({ mode, handleChange}) {
 		const start = textarea.selectionStart
 		const end = textarea.selectionEnd
 		const newText = text.slice(0, start) + textValue + text.slice(end)
-		// basically slices the text into two part and adds custom string and concantenates
 		setText(newText)
 		const newCaretPosition = start + textValue.length 
 		textarea.focus()
@@ -29,18 +28,20 @@ export default function Editor({ mode, handleChange}) {
 			textarea.selectionEnd = newCaretPosition
 		}, 0)
 
-		//this part ensures the caret doesnot goes to end after adding text
 	}
 
 	const style = {
-		border: "none",
+		borderTop: "none",
+		borderBottom: "none",
+		borderLeft: "none",
+		borderRight: "1px solid lightgrey",
 		padding: mode !== 0 ? "20px 30px" : "0px",
 		outline: "none",
+		background: ""
 	}
 
 	return (
 		<>
-			<button onClick={() => handleTextAdd("mr ")}>Add</button>
 			<textarea
 				ref={textAreaRef}
 				className="text-input"
